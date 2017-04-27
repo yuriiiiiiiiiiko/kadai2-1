@@ -31,6 +31,8 @@
 
 package com.toy.anagrams.lib;
 
+import java.util.Random;
+
 /**
  * Implementation of the logic for the Anagram Game application.
  */
@@ -85,6 +87,7 @@ final class StaticWordLibrary extends WordLibrary {
         "violin",
         "piano"};
 
+    /*
     private static final String[] SCRAMBLED_WORD_LIST = {
         "batsartcoin",
         "maibuguos",
@@ -134,6 +137,7 @@ final class StaticWordLibrary extends WordLibrary {
         "niolvio",
         "aoinp"
     };
+    */
     
     final static WordLibrary DEFAULT = new StaticWordLibrary();
 
@@ -157,8 +161,38 @@ final class StaticWordLibrary extends WordLibrary {
      * @param idx index of required word
      * @return word at that index in its scrambled form
      */
+    
     public String getScrambledWord(int idx) {
-        return SCRAMBLED_WORD_LIST[idx];
+    	//return SCRAMBLED_WORD_LIST[idx];
+    	String ans=WORD_LIST[idx];
+    	Random rnd = new Random();
+    	int ran = rnd.nextInt(2) + 1;
+    	String r = "";
+    	for(int i = 0; i<ran; i++) {
+    		r=scramble(ans);
+    	}
+    	return r;
+    }
+
+    public String scramble(String ans){
+    	int n=ans.length();
+    	String[] a=new String[n];
+    	String re="";
+    	Random rnd=new Random();
+    	for(int i=0 ; i<n ; i++){
+    		a[i]=ans.substring(i,(i+1));
+    	}
+    	for(int t=n ; t>1 ; t--){
+    		int ran=rnd.nextInt(t);
+    		String A=a[ran];
+    		a[ran]=a[t-1];
+    		a[t-1]=A;
+    	}
+    	for(int s=0 ; s<n ; s++){
+    		re=re+a[s];
+    	}
+
+    	return re;
     }
 
     /**
